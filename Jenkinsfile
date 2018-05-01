@@ -4,19 +4,19 @@ pipeline {
   }
   stages {
     stage('Say Hello') {
+      options {
+        timeout(time: 30, unit: 'SECONDS')
+      }
+      input {
+        message 'Should we continue?'
+      }
       steps {
-        echo "Hello ${params.Name}!"
-        echo "${TEST_USER_USR}"
-        echo "${TEST_USER_PSW}"
+        echo 'Continuing with deployment'
         sh 'java -version'
       }
     }
   }
   environment {
     MY_NAME = 'CloudBee'
-    TEST_USER = credentials('test-user')
-  }
-  parameters {
-    string(name: 'Name', defaultValue: 'whoever you are', description: 'Who should I say hi to?')
   }
 }
